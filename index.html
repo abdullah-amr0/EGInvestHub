@@ -1,190 +1,235 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>نظام التداول المنضبط — خطة عبود</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مدير الاستثمار والصفقات — عبود</title>
 <style>
 :root{--bg:#0b1220;--card:#141e33;--card2:#0f172a;--line:#24324a;--text:#e6edf7;--muted:#8fa3bf;--green:#22c55e;--red:#ef4444;--gold:#f59e0b;--blue:#38bdf8}
 *{box-sizing:border-box;font-family:'Tajawal','Cairo','Segoe UI',Tahoma,sans-serif}
-body{background:var(--bg);color:var(--text);margin:0;padding-bottom:70px}
-.wrap{max-width:980px;margin:0 auto;padding:0 14px}
-header{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px}
-h1{font-size:1.15rem;margin:0}
+body{background:var(--bg);color:var(--text);margin:0;padding-bottom:60px}
+.wrap{max-width:1000px;margin:0 auto;padding:0 14px}
+header{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+h1{font-size:1.1rem;margin:0}
 .muted{color:var(--muted);font-size:.8rem}
-.btn{border:none;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:.85rem}
-.btn.green{background:var(--green);color:#04121f}.btn.red{background:var(--red);color:#fff}
-.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:18px 0}
-.card h2{font-size:1rem;color:var(--blue);margin:0 0 6px}
-.card p,.card li{font-size:.9rem;line-height:1.8}
-table{width:100%;border-collapse:collapse;font-size:.85rem;margin:10px 0}
-th,td{border:1px solid var(--line);padding:8px;text-align:right}
-th{background:var(--card2);color:var(--blue)}
-.chk{display:flex;gap:10px;align-items:flex-start;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0;cursor:pointer}
-.chk input{width:19px;height:19px;accent-color:var(--green);margin-top:2px}
-.bar{height:9px;background:var(--card2);border-radius:9px;overflow:hidden;margin:8px 0}
-.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:.4s}
-.badge{display:inline-block;padding:8px 16px;border-radius:12px;font-weight:800;margin-top:8px}
-.badge.g{background:rgba(34,197,94,.15);color:var(--green);border:1px solid var(--green)}
-.badge.y{background:rgba(245,158,11,.15);color:var(--gold);border:1px solid var(--gold)}
-.badge.r{background:rgba(239,68,68,.15);color:var(--red);border:1px solid var(--red)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:16px 0}
+h2{font-size:1rem;color:var(--blue);margin:0 0 10px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 label{font-size:.75rem;color:var(--muted);display:block;margin-bottom:4px}
-input[type=number]{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:9px}
-.red{color:var(--red)}.green{color:var(--green)}
+input,select{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:9px;font-size:.9rem}
+.btn{border:none;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;font-size:.85rem;background:var(--green);color:#04121f}
+.btn.blue{background:var(--blue)}.btn.red{background:var(--red);color:#fff}.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.gate{border:1px solid var(--line);border-radius:12px;padding:14px;margin:10px 0;background:var(--card2)}
+.gate.locked{opacity:.45;pointer-events:none}
+.ok{color:var(--green);font-weight:700}.bad{color:var(--red);font-weight:700}.warn{color:var(--gold)}
+table{width:100%;border-collapse:collapse;font-size:.8rem;margin-top:10px}
+th,td{border:1px solid var(--line);padding:6px;text-align:right}
+th{background:var(--card2);color:var(--blue)}
+.chk{display:flex;gap:8px;align-items:flex-start;background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px;margin:8px 0;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:var(--green)}
+.banner{background:rgba(245,158,11,.12);border:1px solid var(--gold);border-radius:12px;padding:12px;margin:12px 0;color:var(--gold)}
+.res{background:var(--card2);border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:10px;font-size:.85rem}
+.row{display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px dashed var(--line)}
 </style>
 </head>
 <body>
-<header><div class="wrap head">
-  <div><h1>🎯 نظام التداول المنضبط — خطة عبود</h1><div class="muted" id="todayDate"></div></div>
-  <div><button class="btn ghost" onclick="window.print()">🖨️ طباعة</button>
-  <button class="btn red" onclick="resetAll()">🗑️ تصفير</button></div>
-</div></header>
-<main class="wrap">
+<header>
+ <div><h1>🎯 مدير الاستثمار والصفقات</h1><div class="muted" id="today"></div></div>
+ <div class="muted" id="capSummary"></div>
+</header>
+<div class="wrap">
 
-<section class="card" data-sec>
-<h2>المرحلة 0 — ما قبل الشارت</h2>
-<label class="chk"><input type="checkbox" id="c0_1" data-save><span>استلمت قائمة المرشحين من التحليل اليومي (لا أنظر لسهم خارجها).</span></label>
-<label class="chk"><input type="checkbox" id="c0_2" data-save><span>اخترت 3–5 أسهم فقط لفحص الشارت.</span></label>
-<div class="bar"><div></div></div><div class="ptxt muted"></div>
-</section>
+<div class="banner" id="monthBanner" style="display:none"></div>
 
-<section class="card" data-sec>
-<h2>المرحلة 1 — فحص الشارت (لكل سهم)</h2>
-<table><tr><th>المؤشر</th><th>القرار</th></tr>
-<tr><td>EMA 21/55/200/400</td><td>فوق 21 و55 و200 = ✔ | تحت 55 = ✘ فيتو | أبعد من +10–12% فوق EMA20 = لا تطارد</td></tr>
-<tr><td>RSI 14</td><td>45–68 ✔ | 70–75 حذر | &gt;75 تشبع ✘✘ | &lt;35 لا تمسك سكيناً</td></tr>
-<tr><td>MACD 12/26/9</td><td>هيستوجرام صاعد/تقاطع صاعد ✔ | تقاطع هابط يومي ✘✘</td></tr>
-<tr><td>Vol 20</td><td>صاعد ≥1.5× ✔ | صاعد ضعيف ✘ | هابط ≥1.5× = توزيع ✘✘</td></tr></table>
-<label class="chk"><input type="checkbox" id="s1" data-save><span>الاتجاه: السعر فوق EMA55.</span></label>
-<label class="chk"><input type="checkbox" id="s2" data-save><span>السعر غير ممتد (أقل من +10% فوق EMA20).</span></label>
-<label class="chk"><input type="checkbox" id="s3" data-save><span>RSI بين 45 و70.</span></label>
-<label class="chk"><input type="checkbox" id="s4" data-save><span>MACD هيستوجرام صاعد.</span></label>
-<label class="chk"><input type="checkbox" id="s5" data-save><span>حجم داعم (لا حجم بيعي ضخم).</span></label>
-<div class="bar"><div></div></div><div class="ptxt muted"></div>
-</section>
-
-<section class="card" data-sec>
-<h2>المرحلة 2 — خوارزمية الدخول (فيتو + تعزيز)</h2>
-<p class="muted">شروط الفيتو الأربعة إلزامية؛ نقاط التعزيز تحدد الحجم.</p>
-<label class="chk"><input type="checkbox" id="v1" data-save><span>فيتو 1: السعر فوق EMA55.</span></label>
-<label class="chk"><input type="checkbox" id="v2" data-save><span>فيتو 2: RSI بين 45 و70.</span></label>
-<label class="chk"><input type="checkbox" id="v3" data-save><span>فيتو 3: سيولة السهم &gt;52% وصافي موجب (من التقرير).</span></label>
-<label class="chk"><input type="checkbox" id="v4" data-save><span>فيتو 4: عائد/مخاطرة الهدف الأول ≥ 1:2 (تُحسب تلقائياً من الحاسبة).</span></label>
-<label class="chk"><input type="checkbox" id="b1" data-save><span>+1 ترصيص 21&gt;55&gt;200.</span></label>
-<label class="chk"><input type="checkbox" id="b2" data-save><span>+1 غير ممتد (&lt;+8% فوق EMA20).</span></label>
-<label class="chk"><input type="checkbox" id="b3" data-save><span>+1 هيستوجرام MACD صاعد.</span></label>
-<label class="chk"><input type="checkbox" id="b4" data-save><span>+1 حجم صاعد ≥1.5× متوسط 20.</span></label>
-<label class="chk"><input type="checkbox" id="b5" data-save><span>+1 عند عقدة حجمية داعمة / ارتداد EMA21.</span></label>
-<div id="verdict" class="badge y">لم يكتمل التقييم</div>
-<div class="bar"><div></div></div><div class="ptxt muted"></div>
-</section>
-
-<section class="card">
-<h2>🧮 حاسبة المركز والوقف والأهداف</h2>
+<!-- المتغيرات -->
+<div class="card">
+<h2>⚙️ المتغيرات (ليست ثوابت)</h2>
 <div class="grid">
-<div><label>رأس المال</label><input type="number" id="cap" value="6000"></div>
-<div><label>نسبة المخاطرة %</label><input type="number" id="risk" value="2" step="0.1"></div>
-<div><label>سعر الدخول</label><input type="number" id="entry" step="0.01"></div>
-<div><label>وقف الخسائر</label><input type="number" id="stop" step="0.01"></div>
-<div><label>الهدف 1</label><input type="number" id="t1" step="0.01"></div>
-<div><label>الهدف 2</label><input type="number" id="t2" step="0.01"></div>
-<div><label>ATR (اختياري)</label><input type="number" id="atr" step="0.01"></div>
+ <div><label>رأس المال (ج)</label><input type="number" id="inCapital"></div>
+ <div><label>نسبة المخاطرة/صفقة %</label><input type="number" id="inRisk" step="0.1"></div>
+ <div><label>سقف المركز %</label><input type="number" id="inCap"></div>
+ <div><label>الوقف الزمني (جلسات)</label><input type="number" id="inTstop"></div>
 </div>
-<div id="calcOut" class="res" style="margin-top:12px"></div>
-</section>
+</div>
 
-<section class="card" data-sec>
-<h2>المرحلة 3 — إدارة الصفقة (بعد التنفيذ)</h2>
-<table><tr><th>الحدث</th><th>الفعل الإلزامي</th></tr>
-<tr><td>التنفيذ</td><td>ضع الوقف فوراً — لا توسّعه أبداً</td></tr>
-<tr><td>الهدف 1</td><td>بِع 40% وانقل الوقف للتعادل</td></tr>
-<tr><td>الهدف 2</td><td>بِع 30% وانقل الوقف للهدف 1</td></tr>
-<tr><td>المتبقي 30%</td><td>تتبّع بـ Chandelier Exit أو إغلاق يومي تحت EMA21</td></tr></table>
-<label class="chk"><input type="checkbox" id="m1" data-save><span>وضعت الوقف فور التنفيذ.</span></label>
-<label class="chk"><input type="checkbox" id="m2" data-save><span>الهدف 1: بعت 40% ونقلت الوقف للتعادل.</span></label>
-<label class="chk"><input type="checkbox" id="m3" data-save><span>الهدف 2: بعت 30% ونقلت الوقف للهدف 1.</span></label>
-<label class="chk"><input type="checkbox" id="m4" data-save><span>المتبقي يتبع Chandelier / EMA21.</span></label>
-<div class="bar"><div></div></div><div class="ptxt muted"></div>
-</section>
+<!-- المعالج -->
+<div class="card">
+<h2>🧭 معالج الصفقة الجديد (بوابات متتابعة)</h2>
+<label>رمز السهم</label><input id="wSymbol" placeholder="مثال: AMOC">
 
-<section class="card" data-sec>
-<h2>المرحلة 4 — مفاتيح الخروج الكامل</h2>
-<p class="muted">إن تحقق أيٌّ مما يلي = اخرج بالكامل ولا تعد في نفس اليوم.</p>
-<label class="chk"><input type="checkbox" id="x1" data-save><span>إغلاق يومي تحت EMA55.</span></label>
-<label class="chk"><input type="checkbox" id="x2" data-save><span>تقاطع MACD هابط بحجم هابط ≥1.5×.</span></label>
-<label class="chk"><input type="checkbox" id="x3" data-save><span>خروج سيولة ليومين متتاليين.</span></label>
-<label class="chk"><input type="checkbox" id="x4" data-save><span>لُمس الوقف.</span></label>
-<div id="exitBanner"></div>
-<div class="bar"><div></div></div><div class="ptxt muted"></div>
-</section>
+<div class="gate" id="G0">
+<h2>البوابة 0 — فلتر السيولة الخارجي</h2>
+<div class="grid">
+ <div><label>نسبة سيولة القطاع %</label><input type="number" id="g0Ratio" step="0.01"></div>
+ <div><label>صافي سيولة السهم (ج)</label><input type="number" id="g0Net"></div>
+ <div><label>إشارة القطاع</label><select id="g0Signal"><option value="strong">دخول قوي</option><option value="in">دخول</option><option value="neutral">محايد</option><option value="exit">خروج</option></select></div>
+ <div class="chk"><input type="checkbox" id="g0Radar"><span>السهم في رادار التراكم</span></div>
+</div>
+<div class="res" id="g0Res"></div>
+<button class="btn" onclick="passGate(0)">اجتياز ✔</button>
+<button class="btn red" onclick="override(0)">تجاوز وسجّل مخالفة ⚠</button>
+</div>
 
-<section class="card">
-<h2>📒 سجل الصفقات (محفوظ محلياً)</h2>
-<form id="logForm" class="grid">
-<div><label>التاريخ</label><input type="date" id="ld" required></div>
-<div><label>السهم</label><input id="ls" required></div>
-<div><label>الكمية</label><input type="number" id="lq" required></div>
-<div><label>الدخول</label><input type="number" id="le" step="0.01" required></div>
-<div><label>الخروج</label><input type="number" id="lx" step="0.01"></div>
-<div><label>ملاحظات</label><input id="ln"></div>
-<div><label>&nbsp;</label><button class="btn green" type="submit">➕ إضافة</button></div>
-</form>
-<table><thead><tr><th>التاريخ</th><th>السهم</th><th>كمية</th><th>دخول</th><th>خروج</th><th>نتيجة</th><th>ملاحظات</th><th></th></tr></thead><tbody id="logBody"></tbody></table>
-<div id="logTotal" class="muted"></div>
-</section>
+<div class="gate locked" id="G1">
+<h2>البوابة 1 — إشارة السكريبت (الإغلاق اليومي)</h2>
+<div class="chk"><input type="checkbox" id="g1Check"><span>جدول لوحة DIY Strategy Builder كله جنبه علامة ✔ (القائد + كل التأكيدات) عند إغلاق الشمعة اليومية</span></div>
+<div class="muted">تذكير: لا تعتمد أي إشارة أثناء الجلسة؛ انتظر الإغلاق.</div>
+<button class="btn" onclick="passGate(1)">اجتياز ✔</button>
+<button class="btn red" onclick="override(1)">تجاوز وسجّل مخالفة ⚠</button>
+</div>
 
-<section class="card">
-<h2>🏆 القواعد الذهبية ضد المشاعر</h2>
-<ul>
-<li>لا صفقة خارج قائمة المرشحين. لا أمر سوق في أول 15 دقيقة.</li>
-<li>لا دخول ممتد (&gt;+10–12% فوق EMA20). لا متوسطات هابطة.</li>
-<li>لا توسيع وقف، لا متوسطات خاسرة، لا مطاردة.</li>
-<li>الوقف والأهداف يُكتبان قبل الدخول ويُلتزم بهما.</li>
-<li>خسارة منضبطة صغيرة = نجاح للنظام؛ مخالفة القواعد = الفشل الحقيقي.</li>
-</ul>
-</section>
-</main>
+<div class="gate locked" id="G2">
+<h2>البوابة 2 — تموضع السعر ونوع الدخول</h2>
+<div class="grid">
+ <div><label>السعر الحالي</label><input type="number" id="g2Price" step="0.01"></div>
+ <div><label>EMA20</label><input type="number" id="g2Ema" step="0.01"></div>
+ <div><label>منطقة الدخول</label><select id="g2Zone"><option value="">— اختر —</option><option>منطقة طلب S/D</option><option>Pivot S1</option><option>فيبوناتشي 0.5–0.618</option><option>ارتداد EMA20/21</option><option>إعادة اختبار اختراق</option></select></div>
+ <div><label>نوع الدخول</label><select id="g2Type"><option value="pullback">تصحيح (أمر محدد)</option><option value="breakout">اختراق + إعادة اختبار</option></select></div>
+</div>
+<div class="res" id="g2Res"></div>
+<button class="btn" onclick="passGate(2)">اجتياز ✔</button>
+<button class="btn red" onclick="override(2)">تجاوز وسجّل مخالفة ⚠</button>
+</div>
+
+<div class="gate locked" id="G3">
+<h2>البوابة 3 — خطة الصفقة والحجم</h2>
+<div class="grid">
+ <div><label>سعر الدخول</label><input type="number" id="g3Entry" step="0.01"></div>
+ <div><label>وقف الخسائر</label><input type="number" id="g3Stop" step="0.01"></div>
+ <div><label>الهدف 1</label><input type="number" id="g3T1" step="0.01"></div>
+ <div><label>الهدف 2</label><input type="number" id="g3T2" step="0.01"></div>
+ <div><label>ATR</label><input type="number" id="g3Atr" step="0.01"></div>
+</div>
+<div class="res" id="g3Res"></div>
+<button class="btn" onclick="passGate(3)">اجتياز ✔</button>
+<button class="btn red" onclick="override(3)">تجاوز وسجّل مخالفة ⚠</button>
+</div>
+
+<div class="gate locked" id="G4">
+<h2>البوابة 4 — التنفيذ والحفظ</h2>
+<div class="chk"><input type="checkbox" id="g4a"><span>وضعت أمر شراء محدد على ثندر (لا أمر سوق)</span></div>
+<div class="chk"><input type="checkbox" id="g4b"><span>فعّلت وقف الخسائر فور التنفيذ</span></div>
+<div class="chk"><input type="checkbox" id="g4c"><span>فعّلت تنبيه الهاتف على منطقة الدخول</span></div>
+<button class="btn blue" onclick="saveTrade()">💾 حفظ الصفقة في السجل</button>
+</div>
+</div>
+
+<!-- المراكز المفتوحة -->
+<div class="card">
+<h2>📂 المراكز المفتوحة ومدير السيناريوهات</h2>
+<div id="openTrades"></div>
+</div>
+
+<!-- السجل والإحصاءات -->
+<div class="card">
+<h2>📒 السجل والإحصاءات</h2>
+<div class="res" id="stats"></div>
+<button class="btn blue" onclick="downloadPrevMonthReport()">⬇ تحميل تقرير الشهر الماضي</button>
+<button class="btn red" onclick="clearAll()">🗑 مسح كل السجل يدوياً</button>
+<table id="logTable"></table>
+</div>
+
+<!-- مرجع الوورك فلو -->
+<div class="card">
+<h2>📘 مرجع الوورك فلو والسيناريوهات</h2>
+<div class="muted">
+قبل الجلسة: تقرير السيولة → قائمة 5–8 أسهم → البوابات 0–4.<br>
+الإدارة: عند الهدف1 بِع 50% والوقف→تعادل؛ عند الهدف2 بِع 30% والوقف→الهدف1؛ الـ20% تتبّع (SuperTrend/Chandelier أو إغلاق تحت EMA21).<br>
+الخروج الكامل: لمس الوقف / انقلاب الإشارة / إغلاق تحت EMA50 / خروج سيولة يومين / وقف زمني 10 جلسات.<br>
+المخالفة الوحيدة التي تُحاسب عليها هي مخالفة القواعد، لا الخسارة المنضبطة.
+</div>
+</div>
+</div>
 
 <script>
-const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
-const store={get(k,d){try{const v=localStorage.getItem('aboud_'+k);return v!==null?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('aboud_'+k,JSON.stringify(v))}catch(e){}}};
-$('#todayDate').textContent=new Date().toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+const $=id=>document.getElementById(id);
+const KEY='abboudManager';
+let S=load()||{set:{capital:6000,risk:1.5,cap:50,tstop:10},trades:[],viol:0};
+let passed={0:false,1:false,2:false,3:false};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}}
+$('today').textContent=new Date().toLocaleDateString('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
 
-$$('input[type=checkbox][data-save]').forEach(cb=>{cb.checked=!!store.get('cb_'+cb.id,false);cb.addEventListener('change',()=>{store.set('cb_'+cb.id,cb.checked);updateAll();});});
+function renderSettings(){ $('inCapital').value=S.set.capital; $('inRisk').value=S.set.risk; $('inCap').value=S.set.cap; $('inTstop').value=S.set.tstop;
+ $('capSummary').textContent='رأس المال: '+S.set.capital+' ج | مخاطرة: '+S.set.risk+'% | سقف: '+S.set.cap+'%'; }
+['inCapital','inRisk','inCap','inTstop'].forEach(id=>$(id).addEventListener('input',()=>{ S.set.capital=+$('inCapital').value||0; S.set.risk=+$('inRisk').value||0; S.set.cap=+$('inCap').value||0; S.set.tstop=+$('inTstop').value||0; save(); renderSettings(); }));
+renderSettings();
 
-function secProgress(){$$('.card[data-sec]').forEach(card=>{const b=card.querySelectorAll('input[type=checkbox][data-save]');if(!b.length)return;const d=Array.from(b).filter(x=>x.checked).length;const bar=card.querySelector('.bar div'),t=card.querySelector('.ptxt');if(bar)bar.style.width=(d/b.length*100)+'%';if(t)t.textContent=d+'/'+b.length;});}
+function gate0(){ const r=+$('g0Ratio').value||0, n=+$('g0Net').value||0, s=$('g0Signal').value;
+ const ok = r>=55 && n>0 && s!=='exit';
+ $('g0Res').innerHTML='نسبة القطاع: <b>'+r+'%</b> | الصافي: <b>'+n+'</b> | '+(ok?'<span class="ok">الفلتر محقق ✔</span>':'<span class="bad">الفلتر غير محقق ✘</span>')+($('g0Radar').checked?' | <span class="ok">رادار تراكم ✔</span>':'');
+ return ok; }
+function gate1(){ return $('g1Check').checked; }
+function gate2(){ const p=+$('g2Price').value||0, e=+$('g2Ema').value||0; const ext=e?((p-e)/e*100):0;
+ const ok = ext<=10 && $('g2Zone').value!=='';
+ $('g2Res').innerHTML='الامتداد فوق EMA20: <b>'+ext.toFixed(1)+'%</b> '+(ext>10?'<span class="bad">ممتد — رفض/انتظار ✘</span>':'<span class="ok">غير ممتد ✔</span>')+' | المنطقة: '+($('g2Zone').value||'—');
+ return ok; }
+function gate3(){ const en=+$('g3Entry').value||0, st=+$('g3Stop').value||0, t1=+$('g3T1').value||0, t2=+$('g3T2').value||0, atr=+$('g3Atr').value||0;
+ if(!(en>st)){ $('g3Res').innerHTML='<span class="bad">الدخول يجب أن يكون أعلى من الوقف ✘</span>'; return false; }
+ const rps=en-st, budget=S.set.capital*S.set.risk/100, byRisk=Math.floor(budget/rps), byCap=Math.floor(S.set.capital*S.set.cap/100/en), sh=Math.min(byRisk,byCap);
+ const rr1=(t1-en)/rps, rr2=(t2-en)/rps, ar=atr?rps/atr:null;
+ const ok = sh>=1 && rr1>=2;
+ $('g3Res').innerHTML='الكمية: <b>'+sh+'</b> | قيمة المركز: <b>'+(sh*en).toFixed(0)+'</b> | مخاطرة: <b>'+(sh*rps).toFixed(0)+' ج ('+((sh*rps)/S.set.capital*100).toFixed(1)+'%)</b><br>عائد/مخاطرة: هـ1=<b>'+rr1.toFixed(1)+'</b> هـ2=<b>'+rr2.toFixed(1)+'</b> '+(rr1<2?'<span class="bad">&lt;2 رفض ✘</span>':'<span class="ok">≥2 ✔</span>')+(ar!==null?' | وقف/ATR=<b>'+ar.toFixed(2)+'</b> '+(ar<0.75||ar>2?'<span class="warn">خارج نطاق 0.75–2 ⚠</span>':'<span class="ok">✔</span>'):'');
+ return ok; }
+function gate4(){ return $('g4a').checked&&$('g4b').checked&&$('g4c').checked; }
+const gates=[gate0,gate1,gate2,gate3];
 
-function updateVerdict(){const v=['v1','v2','v3','v4'].map(id=>$('#'+id).checked);const b=['b1','b2','b3','b4','b5'].map(id=>$('#'+id).checked).filter(Boolean).length;const box=$('#verdict');
-if(v.every(Boolean)){if(b>=3){box.className='badge g';box.textContent='✅ صفقة بحجم كامل (تعزيز: '+b+')';}else if(b===2){box.className='badge y';box.textContent='⚠️ صفقة بنصف حجم (تعزيز: 2)';}else{box.className='badge r';box.textContent='❌ لا صفقة (تعزيز أقل من 2)';}}
-else{box.className='badge r';box.textContent='❌ لا صفقة — فيتو غير مكتمل ('+(4-v.filter(Boolean).length+')');}}
+function passGate(i){ if(gates[i]()){ passed[i]=true; $('G'+(i+1)).classList.remove('locked'); } else alert('الشروط غير محققة — لا يمكن الاجتياز إلا بتجاوز مسجَّل كمخالفة.'); }
+function override(i){ if(confirm('سيتم تسجيل مخالفة على هذه البوابة. متابعة؟')){ S.viol++; passed[i]=true; $('G'+(i+1)).classList.remove('locked'); save(); renderStats(); } }
 
-function updateExit(){const x=['x1','x2','x3','x4'].some(id=>$('#'+id).checked);$('#exitBanner').innerHTML=x?'<span class="badge r">🛑 اخرج بالكامل ولا تعد في نفس اليوم</span>':'';}
+function saveTrade(){ if(!gate4()){ alert('أكمل بنود التنفيذ الثلاثة أولاً.'); return; }
+ const en=+$('g3Entry').value, st=+$('g3Stop').value, t1=+$('g3T1').value, t2=+$('g3T2').value;
+ const rps=en-st, sh=Math.min(Math.floor(S.set.capital*S.set.risk/100/rps), Math.floor(S.set.capital*S.set.cap/100/en));
+ S.trades.push({id:Date.now(), date:new Date().toISOString(), symbol:$('wSymbol').value||'—', type:$('g2Type').value, zone:$('g2Zone').value, entry:en, stop:st, t1:t1, t2:t2, shares:sh, remaining:sh, stage:0, status:'OPEN', pnl:0, events:[{d:new Date().toLocaleDateString('ar-EG'),t:'فتح'}]});
+ save(); resetWizard(); renderTrades(); renderStats(); }
+function resetWizard(){ passed={0:false,1:false,2:false,3:false}; ['G1','G2','G3','G4'].forEach(g=>$(g).classList.add('locked')); ['g0Ratio','g0Net','g2Price','g2Ema','g3Entry','g3Stop','g3T1','g3T2','g3Atr','wSymbol'].forEach(i=>$(i).value=''); ['g0Radar','g1Check','g4a','g4b','g4c'].forEach(i=>$(i).checked=false); }
 
-function calc(){const cap=+$('#cap').value||0,rk=+$('#risk').value||0,e=+$('#entry').value,st=+$('#stop').value,t1=+$('#t1').value,t2=+$('#t2').value,atr=+$('#atr').value||0,out=$('#calcOut');
-if(!(e>0&&st>0&&e>st)){out.innerHTML='<span class="red">أدخل سعر دخول أعلى من وقف الخسائر.</span>';return;}
-const riskAmt=cap*rk/100,rps=e-st,byRisk=Math.floor(riskAmt/rps),byCap=Math.floor(cap*0.5/e),sh=Math.min(byRisk,byCap);
-const rr1=t1?(t1-e)/rps:NaN,rr2=t2?(t2-e)/rps:NaN;let w='';
-if(t1&&rr1<1.5)w+='<div class="red">⚠️ عائد/مخاطرة الهدف الأول &lt; 1:1.5 — شرط الأهداف غير محقق.</div>';
-if(atr>0){const d=rps/atr;if(d<0.75)w+='<div class="red">⚠️ الوقف أضيق من 0.75×ATR — خطر ضوضاء اللمس.</div>';if(d>2)w+='<div class="red">⚠️ الوقف أوسع من 2×ATR — قلّل الحجم.</div>';}
-const v4=$('#v4');if(t1){const ok=rr1>=2;if(v4.checked!==ok){v4.checked=ok;store.set('cb_v4',ok);}}
-out.innerHTML='<div class="row">مبلغ المخاطرة: <b>'+riskAmt.toFixed(0)+' ج</b> | مخاطرة/سهم: <b>'+rps.toFixed(2)+'</b></div>'+
-'<div class="row">أسهم بالمخاطرة: <b>'+byRisk+'</b> | سقف 50%: <b>'+byCap+'</b> | <b class="green">النهائي: '+sh+' سهم</b> (قيمة '+ (sh*e).toFixed(0)+' ج)</div>'+
-'<div class="row">عائد/مخاطرة: هـ1 = <b>'+(isFinite(rr1)?rr1.toFixed(2):'—')+'</b> | هـ2 = <b>'+(isFinite(rr2)?rr2.toFixed(2):'—')+'</b></div>'+w;
-updateVerdict();secProgress();}
-['cap','risk','entry','stop','t1','t2','atr'].forEach(id=>$('#'+id).addEventListener('input',calc));
+function act(id,type,price){ const t=S.trades.find(x=>x.id===id); if(!t)return;
+ const today=new Date().toLocaleDateString('ar-EG');
+ if(type==='T1'){ const q=Math.round(t.shares*0.5); t.pnl+=q*(t.t1-t.entry); t.remaining-=q; t.stop=t.entry; t.stage=1; t.events.push({d:today,t:'بيع 50% عند هـ1 والوقف→تعادل'}); }
+ if(type==='T2'){ const q=Math.round(t.shares*0.3); t.pnl+=q*(t.t2-t.entry); t.remaining-=q; t.stop=t.t1; t.stage=2; t.events.push({d:today,t:'بيع 30% عند هـ2 والوقف→هـ1'}); }
+ if(type==='STOP'){ t.pnl+=t.remaining*(t.stop-t.entry); t.events.push({d:today,t:'خروج باقي '+t.remaining+' عند الوقف'}); t.remaining=0; t.status='CLOSED'; t.closedAt=new Date().toISOString(); }
+ if(type==='FLIP'||type==='TIME'){ const p=price||parseFloat(prompt('أدخل سعر الخروج:'))||0; t.pnl+=t.remaining*(p-t.entry); t.events.push({d:today,t:(type==='TIME'?'وقف زمني':'خروج')+' باقي '+t.remaining+' عند '+p}); t.remaining=0; t.status='CLOSED'; t.closedAt=new Date().toISOString(); }
+ save(); renderTrades(); renderStats(); }
 
-let log=store.get('log',[]);
-function renderLog(){$('#logBody').innerHTML=log.map((r,i)=>{const pl=(r.x&&r.e&&r.q)?((r.x-r.e)*r.q):null;return '<tr><td>'+r.d+'</td><td>'+r.s+'</td><td>'+r.q+'</td><td>'+r.e+'</td><td>'+(r.x||'—')+'</td><td class="'+(pl>0?'green':pl<0?'red':'')+'">'+(pl!==null?pl.toFixed(0):'مفتوحة')+'</td><td>'+(r.n||'')+'</td><td><button class="btn red" onclick="delLog('+i+')">✖</button></td></tr>';}).join('');
-const tot=log.reduce((s,r)=>s+((r.x&&r.e&&r.q)?(r.x-r.e)*r.q:0),0);$('#logTotal').textContent='إجمالي النتائج المسجلة: '+tot.toFixed(0)+' ج';}
-window.delLog=i=>{log.splice(i,1);store.set('log',log);renderLog();};
-$('#logForm').addEventListener('submit',e=>{e.preventDefault();log.push({d:$('#ld').value,s:$('#ls').value,q:+$('#lq').value,e:+$('#le').value,x:$('#lx').value?+$('#lx').value:null,n:$('#ln').value});store.set('log',log);renderLog();e.target.reset();});
+function renderTrades(){ const open=S.trades.filter(t=>t.status==='OPEN');
+ $('openTrades').innerHTML = open.length? open.map(t=>`
+ <div class="gate"><b>${t.symbol}</b> (${t.type==='pullback'?'تصحيح':'اختراق'}) | كمية ${t.shares} متبقي ${t.remaining} | دخول ${t.entry} وقف ${t.stop} | هـ1 ${t.t1} هـ2 ${t.t2} | ربح محقق ${t.pnl.toFixed(0)} ج
+ <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">
+  <button class="btn" onclick="act(${t.id},'T1')">لمس الهدف1</button>
+  <button class="btn" onclick="act(${t.id},'T2')">لمس الهدف2</button>
+  <button class="btn red" onclick="act(${t.id},'STOP')">لمس الوقف</button>
+  <button class="btn red" onclick="act(${t.id},'FLIP')">انقلاب/خروج</button>
+  <button class="btn ghost" onclick="act(${t.id},'TIME')">وقف زمني (${S.set.tstop} جلسة)</button>
+ </div></div>`).join('') : '<div class="muted">لا مراكز مفتوحة.</div>';
+ renderLog(); }
 
-function updateAll(){secProgress();updateVerdict();updateExit();}
-function resetAll(){if(confirm('تصفير كل البيانات المحفوظة؟')){localStorage.removeItem('aboud_log');$$('input[type=checkbox][data-save]').forEach(c=>{localStorage.removeItem('aboud_cb_'+c.id);});location.reload();}}
-updateAll();calc();renderLog();
+function renderLog(){ const rows=[...S.trades].reverse().map(t=>`<tr><td>${new Date(t.date).toLocaleDateString('ar-EG')}</td><td>${t.symbol}</td><td>${t.shares}</td><td>${t.entry}</td><td>${t.status==='OPEN'?'مفتوح':'مغلق'}</td><td class="${t.pnl>=0?'ok':'bad'}">${t.pnl.toFixed(0)}</td><td><button class="btn red" onclick="delTrade(${t.id})">✖</button></td></tr>`).join('');
+ $('logTable').innerHTML='<tr><th>التاريخ</th><th>السهم</th><th>كمية</th><th>دخول</th><th>الحالة</th><th>ربح/خسارة</th><th></th></tr>'+rows; }
+function delTrade(id){ if(confirm('حذف هذه الصفقة؟')){ S.trades=S.trades.filter(t=>t.id!==id); save(); renderTrades(); renderStats(); } }
+
+function stats(list){ const closed=list.filter(t=>t.status==='CLOSED'); const wins=closed.filter(t=>t.pnl>0).length;
+ const pnl=list.reduce((s,t)=>s+t.pnl,0);
+ return {total:list.length, closed:closed.length, wins, losses:closed.length-wins, winRate:closed.length?(wins/closed.length*100).toFixed(0):0, pnl:pnl.toFixed(0)}; }
+function renderStats(){ const all=stats(S.trades);
+ $('stats').innerHTML=`<div class="row"><span>إجمالي الصفقات</span><b>${all.total}</b></div><div class="row"><span>مغلقة</span><b>${all.closed}</b></div><div class="row"><span>رابحة/خاسرة</span><b>${all.wins}/${all.losses}</b></div><div class="row"><span>نسبة النجاح</span><b>${all.winRate}%</b></div><div class="row"><span>صافي الربح/الخسارة</span><b class="${all.pnl>=0?'ok':'bad'}">${all.pnl} ج</b></div><div class="row"><span>المخالفات المسجلة</span><b>${S.viol}</b></div>`; }
+renderStats();
+
+function monthKey(d){ return d.slice(0,7); }
+function downloadPrevMonthReport(){ const now=new Date(); const prev=new Date(now.getFullYear(), now.getMonth()-1, 1); const key=prev.toISOString().slice(0,7);
+ const list=S.trades.filter(t=>monthKey(t.date)===key || (t.closedAt&&monthKey(t.closedAt)===key));
+ const st=stats(list);
+ const rows=list.map(t=>`<tr><td>${new Date(t.date).toLocaleDateString('ar-EG')}</td><td>${t.symbol}</td><td>${t.shares}</td><td>${t.entry}</td><td>${t.stop}</td><td>${t.t1}</td><td>${t.t2}</td><td>${t.status==='OPEN'?'مفتوح':'مغلق'}</td><td>${t.pnl.toFixed(0)}</td></tr>`).join('');
+ const html=`<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><title>تقرير ${key}</title><style>body{font-family:Tahoma;padding:20px}table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:6px;font-size:13px}</style></head><body><h2>تقرير شهر ${key}</h2><p>الصفقات: ${st.total} | مغلقة: ${st.closed} | رابحة: ${st.wins} | خاسرة: ${st.losses} | نسبة النجاح: ${st.winRate}% | الصافي: ${st.pnl} ج | مخالفات: ${S.viol}</p><table><tr><th>التاريخ</th><th>السهم</th><th>كمية</th><th>دخول</th><th>وقف</th><th>هـ1</th><th>هـ2</th><th>الحالة</th><th>ربح/خسارة</th></tr>${rows}</table></body></html>`;
+ const blob=new Blob([html],{type:'text/html'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='report-'+key+'.html'; a.click(); }
+
+function clearAll(){ if(confirm('سيتم مسح كل السجل نهائياً. تأكد أنك حمّلت تقرير الشهر الماضي. متابعة؟')){ S.trades=[]; S.viol=0; save(); renderTrades(); renderStats(); } }
+
+(function banner(){ const nowK=new Date().toISOString().slice(0,7); const hasOld=S.trades.some(t=>monthKey(t.date)!==nowK||(t.closedAt&&monthKey(t.closedAt)!==nowK));
+ if(hasOld){ $('monthBanner').style.display='block'; $('monthBanner').innerHTML='⚠ لديك سجلات من شهور سابقة — حمّل تقرير الشهر الماضي ثم امسح السجل يدوياً إن أردت بدء شهر جديد نظيف.'; } })();
+
+renderTrades();
 </script>
 </body>
 </html>
