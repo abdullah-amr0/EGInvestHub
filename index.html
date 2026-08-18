@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>نظام التداول المنضبط — خطة عبود</title>
+<style>
+:root{--bg:#0b1220;--card:#141e33;--card2:#0f172a;--line:#24324a;--text:#e6edf7;--muted:#8fa3bf;--green:#22c55e;--red:#ef4444;--gold:#f59e0b;--blue:#38bdf8}
+*{box-sizing:border-box;font-family:'Tajawal','Cairo','Segoe UI',Tahoma,sans-serif}
+body{background:var(--bg);color:var(--text);margin:0;padding-bottom:70px}
+.wrap{max-width:980px;margin:0 auto;padding:0 14px}
+header{position:sticky;top:0;z-index:50;background:rgba(11,18,32,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px}
+h1{font-size:1.15rem;margin:0}
+.muted{color:var(--muted);font-size:.8rem}
+.btn{border:none;border-radius:10px;padding:9px 16px;font-weight:700;cursor:pointer;font-size:.85rem}
+.btn.green{background:var(--green);color:#04121f}.btn.red{background:var(--red);color:#fff}
+.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin:18px 0}
+.card h2{font-size:1rem;color:var(--blue);margin:0 0 6px}
+.card p,.card li{font-size:.9rem;line-height:1.8}
+table{width:100%;border-collapse:collapse;font-size:.85rem;margin:10px 0}
+th,td{border:1px solid var(--line);padding:8px;text-align:right}
+th{background:var(--card2);color:var(--blue)}
+.chk{display:flex;gap:10px;align-items:flex-start;background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:10px;margin:8px 0;cursor:pointer}
+.chk input{width:19px;height:19px;accent-color:var(--green);margin-top:2px}
+.bar{height:9px;background:var(--card2);border-radius:9px;overflow:hidden;margin:8px 0}
+.bar div{height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--blue));transition:.4s}
+.badge{display:inline-block;padding:8px 16px;border-radius:12px;font-weight:800;margin-top:8px}
+.badge.g{background:rgba(34,197,94,.15);color:var(--green);border:1px solid var(--green)}
+.badge.y{background:rgba(245,158,11,.15);color:var(--gold);border:1px solid var(--gold)}
+.badge.r{background:rgba(239,68,68,.15);color:var(--red);border:1px solid var(--red)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+label{font-size:.75rem;color:var(--muted);display:block;margin-bottom:4px}
+input[type=number]{width:100%;background:var(--card2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:9px}
+.red{color:var(--red)}.green{color:var(--green)}
+</style>
+</head>
+<body>
+<header><div class="wrap head">
+  <div><h1>🎯 نظام التداول المنضبط — خطة عبود</h1><div class="muted" id="todayDate"></div></div>
+  <div><button class="btn ghost" onclick="window.print()">🖨️ طباعة</button>
+  <button class="btn red" onclick="resetAll()">🗑️ تصفير</button></div>
+</div></header>
+<main class="wrap">
+
+<section class="card" data-sec>
+<h2>المرحلة 0 — ما قبل الشارت</h2>
+<label class="chk"><input type="checkbox" id="c0_1" data-save><span>استلمت قائمة المرشحين من التحليل اليومي (لا أنظر لسهم خارجها).</span></label>
+<label class="chk"><input type="checkbox" id="c0_2" data-save><span>اخترت 3–5 أسهم فقط لفحص الشارت.</span></label>
+<div class="bar"><div></div></div><div class="ptxt muted"></div>
+</section>
+
+<section class="card" data-sec>
+<h2>المرحلة 1 — فحص الشارت (لكل سهم)</h2>
+<table><tr><th>المؤشر</th><th>القرار</th></tr>
+<tr><td>EMA 21/55/200/400</td><td>فوق 21 و55 و200 = ✔ | تحت 55 = ✘ فيتو | أبعد من +10–12% فوق EMA20 = لا تطارد</td></tr>
+<tr><td>RSI 14</td><td>45–68 ✔ | 70–75 حذر | &gt;75 تشبع ✘✘ | &lt;35 لا تمسك سكيناً</td></tr>
+<tr><td>MACD 12/26/9</td><td>هيستوجرام صاعد/تقاطع صاعد ✔ | تقاطع هابط يومي ✘✘</td></tr>
+<tr><td>Vol 20</td><td>صاعد ≥1.5× ✔ | صاعد ضعيف ✘ | هابط ≥1.5× = توزيع ✘✘</td></tr></table>
+<label class="chk"><input type="checkbox" id="s1" data-save><span>الاتجاه: السعر فوق EMA55.</span></label>
+<label class="chk"><input type="checkbox" id="s2" data-save><span>السعر غير ممتد (أقل من +10% فوق EMA20).</span></label>
+<label class="chk"><input type="checkbox" id="s3" data-save><span>RSI بين 45 و70.</span></label>
+<label class="chk"><input type="checkbox" id="s4" data-save><span>MACD هيستوجرام صاعد.</span></label>
+<label class="chk"><input type="checkbox" id="s5" data-save><span>حجم داعم (لا حجم بيعي ضخم).</span></label>
+<div class="bar"><div></div></div><div class="ptxt muted"></div>
+</section>
+
+<section class="card" data-sec>
+<h2>المرحلة 2 — خوارزمية الدخول (فيتو + تعزيز)</h2>
+<p class="muted">شروط الفيتو الأربعة إلزامية؛ نقاط التعزيز تحدد الحجم.</p>
+<label class="chk"><input type="checkbox" id="v1" data-save><span>فيتو 1: السعر فوق EMA55.</span></label>
+<label class="chk"><input type="checkbox" id="v2" data-save><span>فيتو 2: RSI بين 45 و70.</span></label>
+<label class="chk"><input type="checkbox" id="v3" data-save><span>فيتو 3: سيولة السهم &gt;52% وصافي موجب (من التقرير).</span></label>
+<label class="chk"><input type="checkbox" id="v4" data-save><span>فيتو 4: عائد/مخاطرة الهدف الأول ≥ 1:2 (تُحسب تلقائياً من الحاسبة).</span></label>
+<label class="chk"><input type="checkbox" id="b1" data-save><span>+1 ترصيص 21&gt;55&gt;200.</span></label>
+<label class="chk"><input type="checkbox" id="b2" data-save><span>+1 غير ممتد (&lt;+8% فوق EMA20).</span></label>
+<label class="chk"><input type="checkbox" id="b3" data-save><span>+1 هيستوجرام MACD صاعد.</span></label>
+<label class="chk"><input type="checkbox" id="b4" data-save><span>+1 حجم صاعد ≥1.5× متوسط 20.</span></label>
+<label class="chk"><input type="checkbox" id="b5" data-save><span>+1 عند عقدة حجمية داعمة / ارتداد EMA21.</span></label>
+<div id="verdict" class="badge y">لم يكتمل التقييم</div>
+<div class="bar"><div></div></div><div class="ptxt muted"></div>
+</section>
+
+<section class="card">
+<h2>🧮 حاسبة المركز والوقف والأهداف</h2>
+<div class="grid">
+<div><label>رأس المال</label><input type="number" id="cap" value="6000"></div>
+<div><label>نسبة المخاطرة %</label><input type="number" id="risk" value="2" step="0.1"></div>
+<div><label>سعر الدخول</label><input type="number" id="entry" step="0.01"></div>
+<div><label>وقف الخسائر</label><input type="number" id="stop" step="0.01"></div>
+<div><label>الهدف 1</label><input type="number" id="t1" step="0.01"></div>
+<div><label>الهدف 2</label><input type="number" id="t2" step="0.01"></div>
+<div><label>ATR (اختياري)</label><input type="number" id="atr" step="0.01"></div>
+</div>
+<div id="calcOut" class="res" style="margin-top:12px"></div>
+</section>
+
+<section class="card" data-sec>
+<h2>المرحلة 3 — إدارة الصفقة (بعد التنفيذ)</h2>
+<table><tr><th>الحدث</th><th>الفعل الإلزامي</th></tr>
+<tr><td>التنفيذ</td><td>ضع الوقف فوراً — لا توسّعه أبداً</td></tr>
+<tr><td>الهدف 1</td><td>بِع 40% وانقل الوقف للتعادل</td></tr>
+<tr><td>الهدف 2</td><td>بِع 30% وانقل الوقف للهدف 1</td></tr>
+<tr><td>المتبقي 30%</td><td>تتبّع بـ Chandelier Exit أو إغلاق يومي تحت EMA21</td></tr></table>
+<label class="chk"><input type="checkbox" id="m1" data-save><span>وضعت الوقف فور التنفيذ.</span></label>
+<label class="chk"><input type="checkbox" id="m2" data-save><span>الهدف 1: بعت 40% ونقلت الوقف للتعادل.</span></label>
+<label class="chk"><input type="checkbox" id="m3" data-save><span>الهدف 2: بعت 30% ونقلت الوقف للهدف 1.</span></label>
+<label class="chk"><input type="checkbox" id="m4" data-save><span>المتبقي يتبع Chandelier / EMA21.</span></label>
+<div class="bar"><div></div></div><div class="ptxt muted"></div>
+</section>
+
+<section class="card" data-sec>
+<h2>المرحلة 4 — مفاتيح الخروج الكامل</h2>
+<p class="muted">إن تحقق أيٌّ مما يلي = اخرج بالكامل ولا تعد في نفس اليوم.</p>
+<label class="chk"><input type="checkbox" id="x1" data-save><span>إغلاق يومي تحت EMA55.</span></label>
+<label class="chk"><input type="checkbox" id="x2" data-save><span>تقاطع MACD هابط بحجم هابط ≥1.5×.</span></label>
+<label class="chk"><input type="checkbox" id="x3" data-save><span>خروج سيولة ليومين متتاليين.</span></label>
+<label class="chk"><input type="checkbox" id="x4" data-save><span>لُمس الوقف.</span></label>
+<div id="exitBanner"></div>
+<div class="bar"><div></div></div><div class="ptxt muted"></div>
+</section>
+
+<section class="card">
+<h2>📒 سجل الصفقات (محفوظ محلياً)</h2>
+<form id="logForm" class="grid">
+<div><label>التاريخ</label><input type="date" id="ld" required></div>
+<div><label>السهم</label><input id="ls" required></div>
+<div><label>الكمية</label><input type="number" id="lq" required></div>
+<div><label>الدخول</label><input type="number" id="le" step="0.01" required></div>
+<div><label>الخروج</label><input type="number" id="lx" step="0.01"></div>
+<div><label>ملاحظات</label><input id="ln"></div>
+<div><label>&nbsp;</label><button class="btn green" type="submit">➕ إضافة</button></div>
+</form>
+<table><thead><tr><th>التاريخ</th><th>السهم</th><th>كمية</th><th>دخول</th><th>خروج</th><th>نتيجة</th><th>ملاحظات</th><th></th></tr></thead><tbody id="logBody"></tbody></table>
+<div id="logTotal" class="muted"></div>
+</section>
+
+<section class="card">
+<h2>🏆 القواعد الذهبية ضد المشاعر</h2>
+<ul>
+<li>لا صفقة خارج قائمة المرشحين. لا أمر سوق في أول 15 دقيقة.</li>
+<li>لا دخول ممتد (&gt;+10–12% فوق EMA20). لا متوسطات هابطة.</li>
+<li>لا توسيع وقف، لا متوسطات خاسرة، لا مطاردة.</li>
+<li>الوقف والأهداف يُكتبان قبل الدخول ويُلتزم بهما.</li>
+<li>خسارة منضبطة صغيرة = نجاح للنظام؛ مخالفة القواعد = الفشل الحقيقي.</li>
+</ul>
+</section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const store={get(k,d){try{const v=localStorage.getItem('aboud_'+k);return v!==null?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('aboud_'+k,JSON.stringify(v))}catch(e){}}};
+$('#todayDate').textContent=new Date().toLocaleDateString('ar-EG',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+$$('input[type=checkbox][data-save]').forEach(cb=>{cb.checked=!!store.get('cb_'+cb.id,false);cb.addEventListener('change',()=>{store.set('cb_'+cb.id,cb.checked);updateAll();});});
+
+function secProgress(){$$('.card[data-sec]').forEach(card=>{const b=card.querySelectorAll('input[type=checkbox][data-save]');if(!b.length)return;const d=Array.from(b).filter(x=>x.checked).length;const bar=card.querySelector('.bar div'),t=card.querySelector('.ptxt');if(bar)bar.style.width=(d/b.length*100)+'%';if(t)t.textContent=d+'/'+b.length;});}
+
+function updateVerdict(){const v=['v1','v2','v3','v4'].map(id=>$('#'+id).checked);const b=['b1','b2','b3','b4','b5'].map(id=>$('#'+id).checked).filter(Boolean).length;const box=$('#verdict');
+if(v.every(Boolean)){if(b>=3){box.className='badge g';box.textContent='✅ صفقة بحجم كامل (تعزيز: '+b+')';}else if(b===2){box.className='badge y';box.textContent='⚠️ صفقة بنصف حجم (تعزيز: 2)';}else{box.className='badge r';box.textContent='❌ لا صفقة (تعزيز أقل من 2)';}}
+else{box.className='badge r';box.textContent='❌ لا صفقة — فيتو غير مكتمل ('+(4-v.filter(Boolean).length+')');}}
+
+function updateExit(){const x=['x1','x2','x3','x4'].some(id=>$('#'+id).checked);$('#exitBanner').innerHTML=x?'<span class="badge r">🛑 اخرج بالكامل ولا تعد في نفس اليوم</span>':'';}
+
+function calc(){const cap=+$('#cap').value||0,rk=+$('#risk').value||0,e=+$('#entry').value,st=+$('#stop').value,t1=+$('#t1').value,t2=+$('#t2').value,atr=+$('#atr').value||0,out=$('#calcOut');
+if(!(e>0&&st>0&&e>st)){out.innerHTML='<span class="red">أدخل سعر دخول أعلى من وقف الخسائر.</span>';return;}
+const riskAmt=cap*rk/100,rps=e-st,byRisk=Math.floor(riskAmt/rps),byCap=Math.floor(cap*0.5/e),sh=Math.min(byRisk,byCap);
+const rr1=t1?(t1-e)/rps:NaN,rr2=t2?(t2-e)/rps:NaN;let w='';
+if(t1&&rr1<1.5)w+='<div class="red">⚠️ عائد/مخاطرة الهدف الأول &lt; 1:1.5 — شرط الأهداف غير محقق.</div>';
+if(atr>0){const d=rps/atr;if(d<0.75)w+='<div class="red">⚠️ الوقف أضيق من 0.75×ATR — خطر ضوضاء اللمس.</div>';if(d>2)w+='<div class="red">⚠️ الوقف أوسع من 2×ATR — قلّل الحجم.</div>';}
+const v4=$('#v4');if(t1){const ok=rr1>=2;if(v4.checked!==ok){v4.checked=ok;store.set('cb_v4',ok);}}
+out.innerHTML='<div class="row">مبلغ المخاطرة: <b>'+riskAmt.toFixed(0)+' ج</b> | مخاطرة/سهم: <b>'+rps.toFixed(2)+'</b></div>'+
+'<div class="row">أسهم بالمخاطرة: <b>'+byRisk+'</b> | سقف 50%: <b>'+byCap+'</b> | <b class="green">النهائي: '+sh+' سهم</b> (قيمة '+ (sh*e).toFixed(0)+' ج)</div>'+
+'<div class="row">عائد/مخاطرة: هـ1 = <b>'+(isFinite(rr1)?rr1.toFixed(2):'—')+'</b> | هـ2 = <b>'+(isFinite(rr2)?rr2.toFixed(2):'—')+'</b></div>'+w;
+updateVerdict();secProgress();}
+['cap','risk','entry','stop','t1','t2','atr'].forEach(id=>$('#'+id).addEventListener('input',calc));
+
+let log=store.get('log',[]);
+function renderLog(){$('#logBody').innerHTML=log.map((r,i)=>{const pl=(r.x&&r.e&&r.q)?((r.x-r.e)*r.q):null;return '<tr><td>'+r.d+'</td><td>'+r.s+'</td><td>'+r.q+'</td><td>'+r.e+'</td><td>'+(r.x||'—')+'</td><td class="'+(pl>0?'green':pl<0?'red':'')+'">'+(pl!==null?pl.toFixed(0):'مفتوحة')+'</td><td>'+(r.n||'')+'</td><td><button class="btn red" onclick="delLog('+i+')">✖</button></td></tr>';}).join('');
+const tot=log.reduce((s,r)=>s+((r.x&&r.e&&r.q)?(r.x-r.e)*r.q:0),0);$('#logTotal').textContent='إجمالي النتائج المسجلة: '+tot.toFixed(0)+' ج';}
+window.delLog=i=>{log.splice(i,1);store.set('log',log);renderLog();};
+$('#logForm').addEventListener('submit',e=>{e.preventDefault();log.push({d:$('#ld').value,s:$('#ls').value,q:+$('#lq').value,e:+$('#le').value,x:$('#lx').value?+$('#lx').value:null,n:$('#ln').value});store.set('log',log);renderLog();e.target.reset();});
+
+function updateAll(){secProgress();updateVerdict();updateExit();}
+function resetAll(){if(confirm('تصفير كل البيانات المحفوظة؟')){localStorage.removeItem('aboud_log');$$('input[type=checkbox][data-save]').forEach(c=>{localStorage.removeItem('aboud_cb_'+c.id);});location.reload();}}
+updateAll();calc();renderLog();
+</script>
+</body>
+</html>
